@@ -15,7 +15,10 @@ price_for({food, Price, not_imported}) ->
     Price;
 
 price_for({food, Price, imported}) ->
-    Price + import_tax(Price).
+    Price + import_tax(Price);
+
+price_for({medical, Price, not_imported}) ->
+    Price.
 
 import_tax(Price) ->
     ?IMPORT_TAX * Price.
@@ -36,3 +39,6 @@ imported_food_has_10_percent_tax_test() ->
     Item = {food, 10.00, imported},
     ?assertEqual(10.50, tax_calculator:price_for(Item)).
 
+not_imported_medical_is_not_taxed_test() ->
+    Item = {medical, 9.75, not_imported},
+    ?assertEqual(9.75, tax_calculator:price_for(Item)).
