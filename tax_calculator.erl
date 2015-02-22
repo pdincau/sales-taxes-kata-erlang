@@ -21,6 +21,9 @@ price_for({food, Price, imported}) ->
 price_for({medical, Price, not_imported}) ->
     Price;
 
+price_for({medical, Price, imported}) ->
+    tax_round(Price + import_tax(Price), 2);
+
 price_for({general, Price, not_imported}) ->
     tax_round(Price + standard_tax(Price), 2);
 
