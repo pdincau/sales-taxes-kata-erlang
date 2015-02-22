@@ -22,7 +22,10 @@ price_for({medical, Price, not_imported}) ->
     Price;
 
 price_for({general, Price, not_imported}) ->
-    tax_round(Price + standard_tax(Price), 2).
+    tax_round(Price + standard_tax(Price), 2);
+
+price_for({general, Price, imported}) ->
+    tax_round(Price + standard_tax(Price) + import_tax(Price), 2).
 
 import_tax(Price) ->
     ?IMPORT_TAX * Price.
@@ -53,6 +56,10 @@ imported_food_has_5_percent_tax_test() ->
 not_imported_medical_is_not_taxed_test() ->
     Item = {medical, 9.75, not_imported},
     ?assertEqual(9.75, tax_calculator:price_for(Item)).
+
+imported_general_item_has_15_percent_tax_test() ->
+    Item = {general, 27.99, imported},
+    ?assertEqual(32.19, tax_calculator:price_for(Item)).
 
 not_imported_general_item_has_10_percent_tax_test() ->
     Item = {general, 18.99, not_imported},
