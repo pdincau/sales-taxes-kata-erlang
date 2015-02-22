@@ -6,10 +6,6 @@
 -define(STANDARD_TAX, 0.1).
 -define(IMPORT_TAX, 0.05).
 
-tax_round(Number, Precision) ->
-    P = math:pow(10, Precision),
-    erlang:round(Number * P) / P.
-
 price_for({book, Price, not_imported}) ->
     Price;
 
@@ -33,6 +29,10 @@ import_tax(Price) ->
 
 standard_tax(Price) ->
     tax_round(?STANDARD_TAX * Price, 2).
+
+tax_round(Number, Precision) ->
+    P = math:pow(10, Precision),
+    erlang:round(Number * P) / P.
 
 not_imported_book_is_not_taxed_test() ->
     Item = {book, 12.49, not_imported},
