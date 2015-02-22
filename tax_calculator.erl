@@ -14,7 +14,7 @@ price_for({book, Price, not_imported}) ->
     Price;
 
 price_for({book, Price, imported}) ->
-    Price + import_tax(Price);
+    tax_round(Price + import_tax(Price), 2);
 
 price_for({food, Price, not_imported}) ->
     Price;
